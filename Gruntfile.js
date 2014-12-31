@@ -36,7 +36,7 @@ module.exports = function (grunt) {
         files: ['<%= config.app %>/scripts/{,*/}*.js'],
         tasks: ['jshint'],
         options: {
-          livereload: true
+          livereload: '<%= connect.options.livereload %>'
         }
       },
       gruntfile: {
@@ -46,7 +46,7 @@ module.exports = function (grunt) {
         files: ['<%= config.app %>/styles/{,*/}*.css'],
         tasks: [],
         options: {
-          livereload: true
+          livereload: '<%= connect.options.livereload %>'
         }
       },
       livereload: {
@@ -65,8 +65,8 @@ module.exports = function (grunt) {
     // Grunt server and debug server setting
     connect: {
       options: {
-        port: 9000,
-        livereload: 35729,
+        port: 9100,
+        livereload: 36729,
         // change this to '0.0.0.0' to access the server from outside
         hostname: 'localhost'
       },

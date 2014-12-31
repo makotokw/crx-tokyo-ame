@@ -5,7 +5,7 @@
 // WARNING: only supports reload command.
 
 var LIVERELOAD_HOST = 'localhost:';
-var LIVERELOAD_PORT = 35729;
+var LIVERELOAD_PORT = 36729;
 var connection = new WebSocket('ws://' + LIVERELOAD_HOST + LIVERELOAD_PORT + '/livereload');
 
 connection.onerror = function (error) {
