@@ -1,3 +1,12 @@
 'use strict';
 
-console.log('\'Allo \'Allo! Popup');
+angular
+  .module('tokyoAmeApp', [])
+  .config([
+    '$compileProvider',
+    function ($compileProvider) {
+      var validProtocols = /^\s*(https?|chrome-extension):/;
+      $compileProvider.aHrefSanitizationWhitelist(validProtocols);
+      $compileProvider.imgSrcSanitizationWhitelist(validProtocols);
+    }
+  ]);

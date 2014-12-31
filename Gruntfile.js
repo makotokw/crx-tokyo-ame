@@ -18,7 +18,9 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    httpPort: 9010,
+    liveReloadPort: 36729
   };
 
   grunt.initConfig({
@@ -39,6 +41,10 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         }
       },
+      sass: {
+        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        tasks: ['compass:chrome']
+      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -55,7 +61,7 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= config.app %>/*.html',
-          '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= config.app %>/images/{,*/}*.{png,jpg,gif}',
           '<%= config.app %>/manifest.json',
           '<%= config.app %>/_locales/{,*/}*.json'
         ]
@@ -65,8 +71,8 @@ module.exports = function (grunt) {
     // Grunt server and debug server setting
     connect: {
       options: {
-        port: 9100,
-        livereload: 36729,
+        port: config.httpPort,
+        livereload: config.liveReloadPort,
         // change this to '0.0.0.0' to access the server from outside
         hostname: 'localhost'
       },
@@ -74,7 +80,7 @@ module.exports = function (grunt) {
         options: {
           open: false,
           base: [
-            '<%= config.app %>'
+            config.app
           ]
         }
       },
@@ -83,7 +89,7 @@ module.exports = function (grunt) {
           open: false,
           base: [
             'test',
-            '<%= config.app %>'
+            config.app
           ]
         }
       }
@@ -135,12 +141,50 @@ module.exports = function (grunt) {
       }
     },
 
+    // Compiles Sass to CSS and generates necessary files if requested
+    compass: {
+      options: {
+        sassDir: '<%= config.app %>/styles',
+        cssDir: '<%= config.app %>/styles',
+        generatedImagesDir: '.<%= config.app %>/images/generated',
+        imagesDir: '<%= config.app %>/images',
+        javascriptsDir: '<%= config.app %>/scripts',
+        fontsDir: '<%= config.app %>/styles/fonts',
+        importPath: '<%= config.app %>/bower_components',
+        httpImagesPath: '/images',
+        httpGeneratedImagesPath: '/images/generated',
+        httpFontsPath: '/styles/fonts',
+        relativeAssets: false,
+        assetCacheBuster: false,
+        raw: 'Sass::Script::Number.precision = 10\n'
+      },
+      dist: {
+        options: {
+          generatedImagesDir: '<%= config.dist %>/images/generated'
+        }
+      },
+      chrome: {
+        options: {
+          debugInfo: true
+        }
+      }
+    },
+
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
       options: {
-        dest: '<%= config.dist %>'
+        dest: '<%= config.dist %>',
+        flow: {
+          html: {
+            steps: {
+              js: ['concat', 'uglifyjs'],
+              css: ['cssmin']
+            },
+            post: {}
+          }
+        }
       },
       html: [
         '<%= config.app %>/popup.html',
@@ -226,35 +270,66 @@ module.exports = function (grunt) {
     //   dist: {}
     // },
 
-    // Copies remaining files to places other tasks can use
-    copy: {
+    // ng-annotate tries to make the code safe for minification automatically
+    // by using the Angular long form for dependency injection.
+    ngAnnotate: {
       dist: {
         files: [{
           expand: true,
-          dot: true,
-          cwd: '<%= config.app %>',
-          dest: '<%= config.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            'images/{,*/}*.{webp,gif}',
-            '{,*/}*.html',
-            'styles/{,*/}*.css',
-            'styles/fonts/{,*/}*.*',
-            '_locales/{,*/}*.json',
-          ]
+          cwd: '.tmp/concat/scripts',
+          src: ['*.js', '!oldieshim.js'],
+          dest: '.tmp/concat/scripts'
         }]
+      }
+    },
+
+    // Copies remaining files to places other tasks can use
+    copy: {
+      dist: {
+        files: [
+          // app
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= config.app %>',
+            dest: '<%= config.dist %>',
+            src: [
+              'images/{,*/}*.{png,gif}',
+              '{,*/}*.html',
+              'styles/{,*/}*.css',
+              '_locales/{,*/}*.json'
+            ]
+          },
+          // Twitter Bootstrap
+          {
+            expand: true,
+            cwd: '<%= config.app %>/bower_components/bootstrap',
+            dest: '<%= config.dist %>',
+            src: ['fonts/*']
+          },
+          // Font Awesome
+          {
+            expand: true,
+            cwd: '<%= config.app %>/bower_components/font-awesome',
+            dest: '<%= config.dist %>',
+            src: ['fonts/*']
+          }
+        ]
       }
     },
 
     // Run some tasks in parallel to speed up build process
     concurrent: {
       chrome: [
+        'compass:chrome'
       ],
       dist: [
+        'compass:dist',
         'imagemin',
         'svgmin'
       ],
       test: [
+        'compass'
       ]
     },
 
@@ -275,7 +350,7 @@ module.exports = function (grunt) {
       }
     },
 
-    // Compres dist files to package
+    // Compress dist files to package
     compress: {
       dist: {
         options: {
@@ -294,14 +369,12 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('debug', function () {
-    grunt.task.run([
-      'jshint',
-      'concurrent:chrome',
-      'connect:chrome',
-      'watch'
-    ]);
-  });
+  grunt.registerTask('debug', [
+    'jshint',
+    'concurrent:chrome',
+    'connect:chrome',
+    'watch'
+  ]);
 
   grunt.registerTask('test', [
     'connect:test',
@@ -315,6 +388,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'cssmin',
     'concat',
+    'ngAnnotate',
     'uglify',
     'copy',
     'usemin',

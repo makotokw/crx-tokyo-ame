@@ -1,0 +1,81 @@
+// bower:scss
+// endbower
+
+$white: #fff;
+$amesh-blue: #0075FF;
+$amesh-blue-light: #D7F1FF;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: $amesh-blue-light;
+  width: 790px;
+}
+
+.app {
+  padding: 10px;
+}
+
+.map {
+  overflow: hidden;
+  position: relative;
+
+  width: 770px;
+  height: 480px;
+  border: 1px solid $amesh-blue;
+
+  .date-time {
+    width: 150px;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    position: absolute;
+    border: 0;
+    margin: 0;
+    padding: 2px;
+    font-size: 14px;
+    text-align: center;
+    color: $white;
+    background-color: rgba($amesh-blue,.8);
+  }
+
+  .mesh-map-area {
+    width: 3080px;
+    height: 1920px;
+    position: absolute;
+    visibility: hidden;
+    display: block;
+    cursor: move;
+  }
+
+  img {
+    border: 0;
+    position: absolute;
+  }
+
+  .background-map {
+    z-index: 1;
+  }
+  .rainfall-mesh {
+    z-index: 2;
+  }
+  .foreground-map {
+    z-index: 3;
+  }
+}
+
+.record-container {
+  margin: 4px 0;
+}
+
+.recorder-slider-container {
+  margin-left: 10px;
+  margin-right: 10px;
+  .slider {
+    width: 420px;
+  }
+}
+
+.footer {
+  text-align: center;
+}
