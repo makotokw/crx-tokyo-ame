@@ -51,7 +51,7 @@ angular.module('tokyoAmeApp')
 
     var playIntervalId;
     function play() {
-      if ( angular.isDefined(playIntervalId) ) {
+      if (angular.isDefined(playIntervalId)) {
         return;
       }
       $scope.isPlaying = true;
@@ -59,7 +59,7 @@ angular.module('tokyoAmeApp')
       recorderSlider.bootstrapSlider('setValue', -rangeMilliseconds, true);
       stepPrevButton.addClass('disabled');
       stepNextButton.addClass('disabled');
-      playIntervalId = $interval(function() {
+      playIntervalId = $interval(function () {
         stepNext();
         if (!isDirty) {
           stop();
@@ -109,7 +109,6 @@ angular.module('tokyoAmeApp')
         updateRecordedDateByTimeSpan(e.value);
       }
     });
-
     recorderSlider.on('slideStart', function (/*e*/) {
       isSliderDragging = true;
     });
@@ -137,7 +136,7 @@ angular.module('tokyoAmeApp')
         }
       }
       $scope.$parent.updatedDate = latestRecordedDate;
-    }, 1 * 60 * 1000);
+    }, 60 * 1000);
 
     $scope.init = function () {
       console.log('RecordCtrl.init');
