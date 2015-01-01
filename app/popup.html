@@ -29,10 +29,11 @@
       </div>
     </div>
     <div class="record-container" ng-controller="RecordCtrl" ng-init="init()">
-      <a class="btn btn-default" ng-click="play()" ng-hide="isPlaying"><i class="fa fa-play"></i> 再生</a>
-      <a class="btn btn-default ng-hide" ng-click="stop()" ng-show="isPlaying"><i class="fa fa-stop"></i> 停止</a>
+      <a class="btn btn-default" ng-click="play()" ng-hide="isPlaying"><i class="fa fa-play"></i></a>
+      <a class="btn btn-default ng-hide" ng-click="stop()" ng-show="isPlaying"><i class="fa fa-stop"></i></a>
       <a id="stepPrevButton" class="btn btn-default" ng-click="stepPrev()"><i class="fa fa-step-backward"></i> 5分戻</a>
       <a id="stepNextButton" class="btn btn-default" ng-click="stepNext()"><i class="fa fa-step-forward"></i> 5分進</a>
+      <a id="goToLatestButton" class="btn btn-default" ng-click="goToLatest()"><i class="fa fa-fast-forward"></i></a>
       <!-- hack! ng-click dose not work without wrapping slider -->
       <span class="recorder-slider-container">
         <span id="recorderSlider" class="recorder-slider"></span>

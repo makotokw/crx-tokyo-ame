@@ -4,9 +4,9 @@ angular.module('tokyoAmeApp')
   .controller('RecordCtrl', function ($scope, $interval, $filter, Amesh, Options) {
 
     var rangeMilliseconds = 120 * 60 * 1000; // 120 min
-    var isDirty = false; // not latest recorded
     var stepPrevButton = angular.element('#stepPrevButton');
     var stepNextButton = angular.element('#stepNextButton');
+    var goToLatestButton = angular.element('#goToLatestButton');
 
     // http://api.jqueryui.com/slider/
     // https://github.com/seiyria/bootstrap-slider
@@ -32,7 +32,6 @@ angular.module('tokyoAmeApp')
       );
       if (date.getTime() >= latestRecordedDate.getTime() - rangeMilliseconds) {
         $scope.$parent.recordedDate = date;
-        isDirty = true;
       }
     }
 
@@ -43,10 +42,11 @@ angular.module('tokyoAmeApp')
       );
       if (date <= latestRecordedDate) {
         $scope.$parent.recordedDate = date;
-        if (latestRecordedDate.getTime() === $scope.$parent.recordedDate.getTime()) {
-          isDirty = false;
-        }
       }
+    }
+
+    function goToLatest() {
+      updateRecordedDateByTimeSpan(0);
     }
 
     var playIntervalId;
@@ -56,15 +56,18 @@ angular.module('tokyoAmeApp')
       }
       $scope.isPlaying = true;
       recorderSlider.bootstrapSlider('disable');
-      recorderSlider.bootstrapSlider('setValue', -rangeMilliseconds, true);
+      if (isMaxSliderPosition()) {
+        recorderSlider.bootstrapSlider('setValue', -rangeMilliseconds, true);
+      }
       stepPrevButton.addClass('disabled');
       stepNextButton.addClass('disabled');
+      goToLatestButton.addClass('disabled');
       playIntervalId = $interval(function () {
         stepNext();
-        if (!isDirty) {
+        if (isMaxSliderPosition()) {
           stop();
         }
-      }, 1000);
+      }, 750);
     }
 
     function stop() {
@@ -74,9 +77,8 @@ angular.module('tokyoAmeApp')
       }
       $scope.isPlaying = false;
       recorderSlider.bootstrapSlider('enable');
-      recorderSlider.bootstrapSlider('setValue', 0, true);
-      stepPrevButton.removeClass('disabled');
-      stepNextButton.removeClass('disabled');
+      //recorderSlider.bootstrapSlider('setValue', 0, true);
+      onSliderValueChanged();
     }
 
     function toggleScale() {
@@ -93,13 +95,35 @@ angular.module('tokyoAmeApp')
       var latestRecordedDate = Amesh.getLatestMeasurementDateTime();
       var sliderValue = latestRecordedDate.getTime() - $scope.$parent.recordedDate.getTime();
       recorderSlider.bootstrapSlider('setValue', -sliderValue, false);
+      onSliderValueChanged();
+    }
+
+    function isMaxSliderPosition() {
+      return 0 === recorderSlider.bootstrapSlider('getValue');
+    }
+
+    function onSliderValueChanged() {
+      var value = recorderSlider.bootstrapSlider('getValue');
+      //console.log('onSliderValueChanged', value);
+      if (value === 0) {
+        goToLatestButton.addClass('disabled');
+        stepNextButton.addClass('disabled');
+      } else if (!$scope.isPlaying) {
+        goToLatestButton.removeClass('disabled');
+        stepNextButton.removeClass('disabled');
+      }
+      if (value === -rangeMilliseconds) {
+        stepPrevButton.addClass('disabled');
+      } else if (!$scope.isPlaying) {
+        stepPrevButton.removeClass('disabled');
+      }
     }
 
     function updateRecordedDateByTimeSpan(newValue) {
       console.log('updateRecordedDateBySlider', newValue);
       var latestRecordedDate = Amesh.getLatestMeasurementDateTime();
-      var value = angular.isUndefined(newValue) ? recorderSlider.getValue() : newValue;
-      isDirty = value !== 0;
+      var value = angular.isUndefined(newValue) ? recorderSlider.bootstrapSlider('getValue') : newValue;
+      onSliderValueChanged();
       $scope.$parent.recordedDate = new Date(latestRecordedDate.getTime() + value);
       //$scope.$parent.$apply();
     }
@@ -126,9 +150,13 @@ angular.module('tokyoAmeApp')
     // update check via 1 min
     $interval(function () {
       console.log('RecordCtrl.interval to refresh map');
+      // do nothing if playing
+      if ($scope.isPlaying) {
+        return;
+      }
       var now = new Date();
       var latestRecordedDate = Amesh.fixedMeasurementDateTime(now);
-      if (!isDirty) {
+      if (isMaxSliderPosition()) {
         $scope.$parent.recordedDate = latestRecordedDate;
       } else {
         var minRecordedDate = Amesh.fixedMeasurementDateTime(new Date(now - rangeMilliseconds));
@@ -146,8 +174,10 @@ angular.module('tokyoAmeApp')
       $scope.tokyoScale = Amesh.scales.tokyo;
       $scope.stepPrev = stepPrev;
       $scope.stepNext = stepNext;
+      $scope.goToLatest = goToLatest;
       $scope.play = play;
       $scope.stop = stop;
       $scope.toggleScale = toggleScale;
+      onSliderValueChanged();
     };
   });
