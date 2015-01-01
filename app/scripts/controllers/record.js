@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tokyoAmeApp')
-  .controller('RecordCtrl', function ($scope, $interval, $filter, Amesh) {
+  .controller('RecordCtrl', function ($scope, $interval, $filter, Amesh, Options) {
 
     var rangeMilliseconds = 120 * 60 * 1000; // 120 min
     var isDirty = false; // not latest recorded
@@ -85,6 +85,7 @@ angular.module('tokyoAmeApp')
       } else {
         $scope.$parent.scale = Amesh.scales.tokyo;
       }
+      Options.setMapScale($scope.$parent.scale);
     }
 
     function refreshSlider() {

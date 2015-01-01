@@ -24,6 +24,7 @@ angular.module('tokyoAmeApp')
     var defaultDraggableOption = {
       containment: [viewSize.width - mapSize.width, viewSize.height - mapSize.height, 0, 0],
       scroll: false,
+      disabled: false,
       stop: function( event, ui ) {
         console.log(ui.position.left, ui.position.top);
         Options.setMapPosition({left: ui.position.left, top: ui.position.top});
@@ -34,9 +35,11 @@ angular.module('tokyoAmeApp')
       var elementSize = mapSize;
       var refreshPosition = restorePosition;
       var draggableOption = defaultDraggableOption;
+      var mapCursor = 'move';
 
       if ($scope.$parent.scale === Amesh.scales.whole) {
         elementSize = viewSize;
+        mapCursor = 'default';
         refreshPosition = function() {
           setPosition({left: 0, top: 0});
         };
@@ -46,9 +49,10 @@ angular.module('tokyoAmeApp')
       }
 
       mapElement
-        .css({width: elementSize.width, height: elementSize.height})
+        .css({width: elementSize.width, height: elementSize.height, cursor: mapCursor})
         .draggable(draggableOption)
         .find('img').css({width: elementSize.width, height: elementSize.height});
+
       refreshPosition();
       refreshMesh();
     }

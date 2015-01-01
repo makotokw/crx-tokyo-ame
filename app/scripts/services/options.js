@@ -11,6 +11,14 @@ angular.module('tokyoAmeApp')
       return angular.fromJson(data);
     }
 
+    function setMapScale(scale) {
+      localStorage.setItem('mapScale', scale);
+    }
+
+    function getMapScale() {
+      return localStorage.getItem('mapScale');
+    }
+
     function setMapPosition(position) {
       setItemWithJson('mapPosition', position);
     }
@@ -22,6 +30,8 @@ angular.module('tokyoAmeApp')
     return {
       setItemWithJson: setItemWithJson,
       getItemWithJson: getItemWithJson,
+      setMapScale: setMapScale,
+      getMapScale: getMapScale,
       setMapPosition: setMapPosition,
       getMapPosition: getMapPosition
     };
