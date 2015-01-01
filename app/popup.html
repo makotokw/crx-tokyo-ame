@@ -1,73 +1,71 @@
 <!doctype html>
 <html ng-csp>
-    <head>
-        <meta charset="utf-8">
-        <!-- build:css styles/vendor.css -->
-        <!-- bower:css -->
-        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
-        <!-- endbower -->
-        <link rel="stylesheet" href="bower_components/angular/angular-csp.css" />
-        <!-- endbuild -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <!-- endbuild -->
-    </head>
-    <body ng-app="tokyoAmeApp">
+<head>
+  <meta charset="utf-8">
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css"/>
+  <!-- endbower -->
+  <link rel="stylesheet" href="bower_components/angular/angular-csp.css"/>
+  <!-- endbuild -->
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+<body ng-app="tokyoAmeApp">
 
-      <div ng-controller="MainCtrl" class="app" ng-init="init()">
-        <header class="header">
-        </header>
-        <div class="contents">
-          <div class="map-container" ng-controller="MapCtrl as map" ng-init="init()">
-            <div class="map">
-              <div class="date-time date-time-recorded" ng-bind="recordedDate | date : 'yyyy/MM/dd HH:mm'"></div>
-              <div id="mapArea" class="mesh-map-area">
-                <img class="background-map" ng-src="images/map/map{{scale}}.jpg" width="3080" height="1920"/>
-                <img class="rainfall-mesh" ng-src="{{meshImageUrl}}" width="3080" height="1920" alt=""/>
-                <img class="foreground-map" ng-src="images/map/msk{{scale}}.png" width="3080" height="1920"/>
-              </div>
-            </div>
-          </div>
-          <div class="record-container" ng-controller="RecordCtrl" ng-init="init()">
-            <a class="btn btn-default" ng-click="play()" ng-hide="isPlaying"><i class="fa fa-play"></i> 再生</a>
-            <a class="btn btn-default" ng-click="stop()" ng-show="isPlaying"><i class="fa fa-stop"></i> 停止</a>
-            <a id="stepPrevButton" class="btn btn-default" ng-click="stepPrev()"><i class="fa fa-step-backward"></i> 5分戻</a>
-            <a id="stepNextButton" class="btn btn-default" ng-click="stepNext()"><i class="fa fa-step-forward"></i> 5分進</a>
-            <!-- hack! ng-click dose not work without wrapping slider -->
-            <span class="recorder-slider-container">
-              <span id="recorderSlider" class="recorder-slider"></span>
-            </span>
-            <a class="btn btn-default" ng-click="toggleScale()" ng-show="scale == tokyoScale"><i class="fa fa-expand"></i> 全域</a>
-            <a class="btn btn-default" ng-click="toggleScale()" ng-show="scale == wholeScale"><i class="fa fa-compress"></i> 拡大</a>
-          </div>
+<div ng-controller="MainCtrl" class="app" ng-init="init()">
+  <div class="contents">
+    <div class="map-container" ng-controller="MapCtrl as map" ng-init="init()">
+      <div class="map">
+        <div class="date-time date-time-recorded" ng-bind="recordedDate | date : 'yyyy/MM/dd HH:mm'">&nbsp;</div>
+        <div id="mapArea" class="mesh-map-area">
+          <img class="background-map" ng-src="images/map/map{{scale}}.jpg" src="images/map/map100.jpg" width="3080" height="1920" alt=""/>
+          <img class="rainfall-mesh" ng-src="{{meshImageUrl}}" src="images/spacer.gif" width="3080" height="1920" alt=""/>
+          <img class="foreground-map" ng-src="images/map/msk{{scale}}.png" src="images/map/msk100.png" width="3080" height="1920" alt=""/>
         </div>
-        <footer class="footer">
-          Powered by <a href="http://tokyo-ame.jwa.or.jp/" target="_blank">東京アメッシュ</a>
-          <span class="date-time date-time-updated" ng-bind="updatedDate | date : 'yyyy/MM/dd HH:mm 更新'"></span>
-        </footer>
       </div>
+    </div>
+    <div class="record-container" ng-controller="RecordCtrl" ng-init="init()">
+      <a class="btn btn-default" ng-click="play()" ng-hide="isPlaying"><i class="fa fa-play"></i> 再生</a>
+      <a class="btn btn-default ng-hide" ng-click="stop()" ng-show="isPlaying"><i class="fa fa-stop"></i> 停止</a>
+      <a id="stepPrevButton" class="btn btn-default" ng-click="stepPrev()"><i class="fa fa-step-backward"></i> 5分戻</a>
+      <a id="stepNextButton" class="btn btn-default" ng-click="stepNext()"><i class="fa fa-step-forward"></i> 5分進</a>
+      <!-- hack! ng-click dose not work without wrapping slider -->
+      <span class="recorder-slider-container">
+        <span id="recorderSlider" class="recorder-slider"></span>
+      </span>
+      <a class="btn btn-default" ng-click="toggleScale()" ng-show="scale == tokyoScale"><i class="fa fa-expand"></i> 全域</a>
+      <a class="btn btn-default ng-hide" ng-click="toggleScale()" ng-show="scale == wholeScale"><i class="fa fa-compress"></i> 拡大</a>
+    </div>
+  </div>
+  <footer class="footer">
+    Powered by <a href="http://tokyo-ame.jwa.or.jp/" target="_blank" tabindex="1">東京アメッシュ</a>
+    <span class="date-time date-time-updated" ng-bind="updatedDate | date : 'yyyy/MM/dd HH:mm 更新'"></span>
+  </footer>
+</div>
 
-      <!-- build:js scripts/vendor.js -->
-      <!-- bower:js -->
-      <script src="bower_components/modernizr/modernizr.js"></script>
-      <script src="bower_components/jquery/jquery.js"></script>
-      <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
-      <script src="bower_components/angular/angular.js"></script>
-      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-      <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
-      <script src="bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
-      <!-- endbower -->
-      <!-- endbuild -->
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/modernizr/modernizr.js"></script>
+<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
+<script src="bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-      <!-- build:js({.tmp,app}) scripts/popup.js -->
-      <script src="scripts/popup.js"></script>
-      <script src="scripts/controllers/main.js"></script>
-      <script src="scripts/controllers/map.js"></script>
-      <script src="scripts/controllers/record.js"></script>
-      <script src="scripts/services/amesh.js"></script>
-      <script src="scripts/services/options.js"></script>
-      <!-- endbuild -->
-    </body>
+<!-- build:js({.tmp,app}) scripts/popup.js -->
+<script src="scripts/popup.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/map.js"></script>
+<script src="scripts/controllers/record.js"></script>
+<script src="scripts/services/amesh.js"></script>
+<script src="scripts/services/options.js"></script>
+<!-- endbuild -->
+</body>
 </html>

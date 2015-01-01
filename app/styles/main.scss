@@ -9,10 +9,12 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: $amesh-blue-light;
-  width: 790px;
 }
 
 .app {
+  display: block;
+  min-width: 790px;
+  min-height: 560px;
   padding: 10px;
 }
 
@@ -74,10 +76,19 @@ html, body {
   .slider {
     width: 420px;
   }
+  .slider-handle {
+    outline: 0;
+  }
 }
 
 .footer {
   text-align: center;
   font-size: .8em;
   color: #999;
+
+  // hide first focus
+  a:focus {
+    text-decoration: none;
+    outline: 0;
+  }
 }
