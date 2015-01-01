@@ -207,38 +207,22 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= config.app %>/images',
-          src: '{,*/}*.{gif,jpeg,jpg,png}',
+          src: '{,*/}*.{gif,jpg,png}',
           dest: '<%= config.dist %>/images'
         }]
       }
     },
 
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= config.app %>/images',
-          src: '{,*/}*.svg',
-          dest: '<%= config.dist %>/images'
-        }]
-      }
-    },
-
+    // https://github.com/kangax/html-minifier#options-quick-reference
     htmlmin: {
       dist: {
         options: {
-          // removeCommentsFromCDATA: true,
-          // collapseWhitespace: true,
-          // collapseBooleanAttributes: true,
-          // removeAttributeQuotes: true,
-          // removeRedundantAttributes: true,
-          // useShortDoctype: true,
-          // removeEmptyAttributes: true,
-          // removeOptionalTags: true
+          removeComments: true,
+          collapseWhitespace: true
         },
         files: [{
           expand: true,
-          cwd: '<%= config.app %>',
+          cwd: '<%= config.dist %>',
           src: '*.html',
           dest: '<%= config.dist %>'
         }]
@@ -325,8 +309,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'compass:dist',
-        'imagemin',
-        'svgmin'
+        'imagemin'
       ],
       test: [
         'compass'
@@ -338,7 +321,7 @@ module.exports = function (grunt) {
     chromeManifest: {
       dist: {
         options: {
-          buildnumber: true
+          buildnumber: false
         },
         src: '<%= config.app %>',
         dest: '<%= config.dist %>'
@@ -387,6 +370,7 @@ module.exports = function (grunt) {
     'uglify',
     'copy',
     'usemin',
+    'htmlmin',
     'compress'
   ]);
 
