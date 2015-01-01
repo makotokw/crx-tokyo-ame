@@ -18,7 +18,19 @@ bower install
 grunt debug
 ```
 
+Add ``background`` to ``app/manifest.json`` for LiveReload.
+
+```
+    "background": {
+        "scripts": [
+            "scripts/chromereload.js",
+            "scripts/background.js"
+        ]
+    },
+```
+
 Open Chrome and go to Tools > Extensions > ``Load unpacked extensions...`` and select ``app`` directory.
+
 
 ## LICENSE
 

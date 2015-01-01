@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "東京アメッシュ",
+    "message": "Tokyo Amesh Extension",
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "東京アメッシュ Chrome Extension",
+    "message": "東京アメッシュの地図をいつでも表示します。",
     "description": "The description of the application"
   }
 }

@@ -334,6 +334,7 @@ module.exports = function (grunt) {
     },
 
     // Auto buildnumber, exclude debug files. smart builds that event pages
+    // https://github.com/ragingwind/grunt-chrome-manifest
     chromeManifest: {
       dist: {
         options: {
