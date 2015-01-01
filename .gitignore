@@ -1,3 +1,4 @@
+### generator-chrome-extension ###
 node_modules
 temp
 .tmp
@@ -6,6 +7,11 @@ dist
 app/bower_components
 test/bower_components
 package
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
 
 ### Intellij ###
 *.iml
