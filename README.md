@@ -9,6 +9,7 @@ Unofficial [Tokyo Amesh](http://tokyo-ame.jwa.or.jp/) Chrome Extension.
 
 * Grunt
 * Bower
+* Compass >=1.0.1
 
 ### Getting Started
 
