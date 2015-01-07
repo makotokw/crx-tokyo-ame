@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Tokyo Amesh Extension",
+    "message": "Tokyo Amesh",
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "東京アメッシュの地図をいつでも表示します。",
+    "message": "東京アメッシュから取得した雨量マップを表示します。",
     "description": "The description of the application"
   }
 }

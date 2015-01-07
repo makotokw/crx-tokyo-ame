@@ -321,7 +321,13 @@ module.exports = function (grunt) {
     chromeManifest: {
       dist: {
         options: {
-          buildnumber: false
+          buildnumber: false,
+          background: {
+            target: 'scripts/background.js',
+            exclude: [
+              'background/scripts/chromereload.js'
+            ]
+          }
         },
         src: '<%= config.app %>',
         dest: '<%= config.dist %>'

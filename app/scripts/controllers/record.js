@@ -156,15 +156,21 @@ angular.module('tokyoAmeApp')
       }
       var now = new Date();
       var latestRecordedDate = Amesh.fixedMeasurementDateTime(now);
+      var uptoRecordedDate;
       if (isMaxSliderPosition()) {
-        $scope.$parent.recordedDate = latestRecordedDate;
+        uptoRecordedDate = latestRecordedDate;
       } else {
         var minRecordedDate = Amesh.fixedMeasurementDateTime(new Date(now - rangeMilliseconds));
         if (latestRecordedDate.getTime() < minRecordedDate.getTime()) {
-          $scope.$parent.recordedDate = minRecordedDate;
+          uptoRecordedDate = minRecordedDate;
         }
       }
       $scope.$parent.updatedDate = latestRecordedDate;
+      if (uptoRecordedDate) {
+        $scope.$parent.recordedDate = uptoRecordedDate;
+      } else {
+        refreshSlider();
+      }
     }, 60 * 1000);
 
     $scope.init = function () {

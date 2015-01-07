@@ -7,6 +7,7 @@ angular.module('tokyoAmeApp')
     var viewSize = {width: 770, height: 480};
     var mapSize = {width: 3080, height: 1920};
     var mapElement = angular.element('#mapArea');
+    var rainFallMeshElement = angular.element('#rainFallMesh');
 
     function setPosition(position) {
       mapElement.css({'top': position.top, 'left': position.left});
@@ -18,7 +19,10 @@ angular.module('tokyoAmeApp')
     }
 
     function refreshMesh() {
-      $scope.meshImageUrl = Amesh.getMeshImageUrl($scope.$parent.recordedDate, $scope.$parent.scale);
+      Amesh.getMeshImageUrl($scope.$parent.recordedDate, $scope.$parent.scale)
+        .then(function (url) {
+          rainFallMeshElement.attr('src', url);
+        });
     }
 
     var defaultDraggableOption = {
@@ -65,10 +69,15 @@ angular.module('tokyoAmeApp')
       refreshMesh();
     });
 
-    $scope.init = function () {
-      console.log('MapCtrl.init');
+    $scope.$on('options.loaded', function () {
+      $scope.$parent.scale = Options.getMapScale();
       refreshMap();
       mapElement.css('visibility', 'visible');
+    });
+
+    $scope.init = function () {
+      console.log('MapCtrl.init');
+      Options.load();
     };
 
   });

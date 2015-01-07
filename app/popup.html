@@ -23,7 +23,7 @@
         <div class="date-time date-time-recorded" ng-bind="recordedDate | date : 'yyyy/MM/dd HH:mm'">&nbsp;</div>
         <div id="mapArea" class="mesh-map-area">
           <img class="background-map" ng-src="images/map/map{{scale}}.jpg" src="images/map/map100.jpg" width="3080" height="1920" alt=""/>
-          <img class="rainfall-mesh" ng-src="{{meshImageUrl}}" src="images/spacer.gif" width="3080" height="1920" alt=""/>
+          <img id="rainFallMesh" class="rainfall-mesh" src="images/spacer.gif" width="3080" height="1920" alt=""/>
           <img class="foreground-map" ng-src="images/map/msk{{scale}}.png" src="images/map/msk100.png" width="3080" height="1920" alt=""/>
         </div>
       </div>
