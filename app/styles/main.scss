@@ -40,6 +40,7 @@ html, body {
     width: 17px;
     height: 17px;
     -webkit-app-region: no-drag;
+    color: $white;
     &:hover {
       color: $amesh-blue-light;
     }
@@ -109,7 +110,7 @@ html, body {
   margin-left: 10px;
   margin-right: 10px;
   .slider {
-    width: 420px;
+    width: 540px;
   }
   .slider-handle {
     outline: 0;
@@ -130,6 +131,10 @@ html, body {
     margin-top: 2px;
     font-size: 8pt;
     color: $white;
+  }
+
+  .date-time-updated {
+    margin-left: 4px;
   }
 
   a {

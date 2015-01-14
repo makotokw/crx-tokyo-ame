@@ -4,11 +4,11 @@
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "東京アメッシュから取得した雨量マップを表示します。",
+    "message": "Display rain map from Tokyo Amesh",
     "description": "The description of the application"
   },
   "tokyoAmesh": {
-    "message": "東京アメッシュ"
+    "message": "Tokyo Amesh"
   },
   "recordedDateFormat": {
     "message": "yyyy/MM/dd HH:mm"
@@ -17,30 +17,30 @@
     "message": "yyyy/MM/dd HH:mm"
   },
   "updatedDateSuffix": {
-    "message": "更新"
+    "message": "Updated"
   },
   "close":  {
-    "message": "閉じる"
+    "message": "Close"
   },
   "play":  {
-    "message": "再生"
+    "message": "Play"
   },
   "stop":  {
-    "message": "停止"
+    "message": "Stop"
   },
   "stepPrev":  {
-    "message": "5分戻る"
+    "message": "5 min back"
   },
   "stepNext":  {
-    "message": "5分進む"
+    "message": "5 min skip"
   },
   "goToLatest":  {
-    "message": "最新"
+    "message": "Go to latest"
   },
   "toTokyoScale":  {
-    "message": "拡大"
+    "message": "Tokyo"
   },
   "toWholeScale": {
-    "message": "広域"
+    "message": "Whole"
   }
 }

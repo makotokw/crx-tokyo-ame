@@ -20,14 +20,14 @@
 
   <div class="titlebar">
     <span class="titlebar-icon"><i class="fa fa-umbrella"></i></span>
-    <span class="titlebar-text">Tokyo Ame</span>
-    <span class="titlebar-close-button" ng-click="close()"><i class="fa fa-times"></i></span>
+    <span class="titlebar-text" ng-bind="i18n('appName')"></span>
+    <a class="titlebar-close-button" ng-click="close()" title="{{i18n('close')}}"><i class="fa fa-times"></i></a>
   </div>
 
   <div class="contents">
     <div class="map-container" ng-controller="MapCtrl as map" ng-init="init()">
       <div class="map">
-        <div class="date-time date-time-recorded" ng-bind="recordedDate | date : 'yyyy/MM/dd HH:mm'">&nbsp;</div>
+        <div class="date-time date-time-recorded" ng-bind="recordedDate | date : recordedDateFormat">&nbsp;</div>
         <div id="mapArea" class="mesh-map-area">
           <img class="background-map" ng-src="images/map/map{{scale}}.jpg" src="images/map/map100.jpg" width="3080" height="1920" alt=""/>
           <img id="rainFallMesh" class="rainfall-mesh" src="images/spacer.gif" width="3080" height="1920" alt=""/>
@@ -36,23 +36,23 @@
       </div>
     </div>
     <div class="record-container" ng-controller="RecordCtrl" ng-init="init()">
-      <a class="btn btn-default" ng-click="play()" ng-hide="isPlaying"><i class="fa fa-play"></i></a>
-      <a class="btn btn-default ng-hide" ng-click="stop()" ng-show="isPlaying"><i class="fa fa-stop"></i></a>
-      <a id="stepPrevButton" class="btn btn-default" ng-click="stepPrev()"><i class="fa fa-step-backward"></i> 5分戻</a>
-      <a id="stepNextButton" class="btn btn-default" ng-click="stepNext()"><i class="fa fa-step-forward"></i> 5分進</a>
-      <a id="goToLatestButton" class="btn btn-default" ng-click="goToLatest()"><i class="fa fa-fast-forward"></i></a>
+      <a class="btn btn-default" ng-click="play()" ng-hide="isPlaying" title="{{i18n('play')}}"><i class="fa fa-play"></i></a>
+      <a class="btn btn-default ng-hide" ng-click="stop()" ng-show="isPlaying" title="{{i18n('stop')}}"><i class="fa fa-stop"></i></a>
+      <a id="stepPrevButton" class="btn btn-default" ng-click="stepPrev()" title="{{i18n('stepPrev')}}"><i class="fa fa-step-backward"></i></a>
+      <a id="stepNextButton" class="btn btn-default" ng-click="stepNext()" title="{{i18n('stepNext')}}"><i class="fa fa-step-forward"></i></a>
+      <a id="goToLatestButton" class="btn btn-default" ng-click="goToLatest()" title="{{i18n('goToLatest')}}"><i class="fa fa-fast-forward"></i></a>
       <!-- hack! ng-click dose not work without wrapping slider -->
       <span class="recorder-slider-container">
         <span id="recorderSlider" class="recorder-slider"></span>
       </span>
-      <a class="btn btn-default" ng-click="toggleScale()" ng-show="scale == tokyoScale"><i class="fa fa-expand"></i> 全域</a>
-      <a class="btn btn-default ng-hide" ng-click="toggleScale()" ng-show="scale == wholeScale"><i class="fa fa-compress"></i> 拡大</a>
+      <a class="btn btn-default" ng-click="toggleScale()" ng-show="scale == tokyoScale" title="{{i18n('toWholeScale')}}"><i class="fa fa-expand"></i></a>
+      <a class="btn btn-default ng-hide" ng-click="toggleScale()" ng-show="scale == wholeScale" title="{{i18n('toTokyoScale')}}"><i class="fa fa-compress"></i></a>
     </div>
   </div>
   <footer class="footer">
     <span class="footer-text">
-      Powered by <a href="http://tokyo-ame.jwa.or.jp/" target="_blank" tabindex="1">東京アメッシュ</a>
-      <span class="date-time date-time-updated" ng-bind="updatedDate | date : 'yyyy/MM/dd HH:mm 更新'"></span>
+      Powered by <a href="http://tokyo-ame.jwa.or.jp/" target="_blank" tabindex="1"><span ng-bind="i18n('TokyoAmesh')"></span></a>.
+      <span class="date-time date-time-updated" ng-bind="updatedDate | date : updatedDateFormat"></span> <span ng-bind="i18n('updatedDateSuffix')"></span>.
     </span>
   </footer>
 </div>
