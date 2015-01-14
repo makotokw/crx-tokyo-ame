@@ -16,7 +16,14 @@
 </head>
 <body ng-app="tokyoAmeApp">
 
-<div ng-controller="MainCtrl" class="app" ng-init="init()">
+<div ng-controller="MainCtrl" ng-init="init()">
+
+  <div class="titlebar">
+    <span class="titlebar-icon"><i class="fa fa-umbrella"></i></span>
+    <span class="titlebar-text">Tokyo Amesh</span>
+    <span class="titlebar-close-button" ng-click="close()"><i class="fa fa-times"></i></span>
+  </div>
+
   <div class="contents">
     <div class="map-container" ng-controller="MapCtrl as map" ng-init="init()">
       <div class="map">
@@ -43,8 +50,10 @@
     </div>
   </div>
   <footer class="footer">
-    Powered by <a href="http://tokyo-ame.jwa.or.jp/" target="_blank" tabindex="1">東京アメッシュ</a>
-    <span class="date-time date-time-updated" ng-bind="updatedDate | date : 'yyyy/MM/dd HH:mm 更新'"></span>
+    <span class="footer-text">
+      Powered by <a href="http://tokyo-ame.jwa.or.jp/" target="_blank" tabindex="1">東京アメッシュ</a>
+      <span class="date-time date-time-updated" ng-bind="updatedDate | date : 'yyyy/MM/dd HH:mm 更新'"></span>
+    </span>
   </footer>
 </div>
 

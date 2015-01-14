@@ -5,10 +5,17 @@ chrome.runtime.onInstalled.addListener(function (details) {
 });
 
 chrome.app.runtime.onLaunched.addListener(function() {
-  chrome.app.window.create('popup.html', {
-    'bounds': {
-      'width': 800,
-      'height': 560
+  chrome.app.window.create(
+    'popup.html',
+    {
+      frame: 'none',
+      resizable: false,
+      innerBounds: {
+        'left': 50,
+        'top': 50,
+        'width': 790,
+        'height': 584
+      }
     }
-  });
+  );
 });

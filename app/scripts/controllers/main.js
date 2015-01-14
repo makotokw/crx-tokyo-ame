@@ -5,4 +5,8 @@ angular.module('tokyoAmeApp')
     $scope.scale = Options.getMapScale() || Amesh.scales.tokyo;
     $scope.recordedDate =
     $scope.updatedDate = Amesh.getLatestMeasurementDateTime();
+
+    $scope.close = function() {
+      window.close();
+    }
   });
