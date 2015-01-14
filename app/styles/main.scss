@@ -26,11 +26,11 @@ html, body {
 
   .titlebar-text {
     position: absolute;
-    top: 1px;
+    top: 3px;
     left: 24px;
     width: 80%;
     font-family: Arial, serif;
-    font-size: 11pt;
+    font-size: 10pt;
   }
 
   .titlebar-close-button {
@@ -128,7 +128,7 @@ html, body {
 
   .footer-text {
     margin-top: 2px;
-    font-size: .8em;
+    font-size: 8pt;
     color: $white;
   }
 
