@@ -8,7 +8,7 @@ angular.module('tokyoAmeApp')
 
     function save() {
       if (chrome && chrome.storage) {
-        chrome.storage.local.set({mapScale: mapScale, mapPosition: mapPosition}, function (items){
+        chrome.storage.local.set({mapScale: mapScale, mapPosition: mapPosition}, function (/*items*/){
           $rootScope.$broadcast('options.saved');
         });
       } else if (window.localStorage) {

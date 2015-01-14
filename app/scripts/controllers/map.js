@@ -70,7 +70,10 @@ angular.module('tokyoAmeApp')
     });
 
     $scope.$on('options.loaded', function () {
-      $scope.$parent.scale = Options.getMapScale();
+      var scale = Options.getMapScale();
+      if (angular.isDefined(scale)) {
+        $scope.$parent.scale = scale;
+      }
       refreshMap();
       mapElement.css('visibility', 'visible');
     });
