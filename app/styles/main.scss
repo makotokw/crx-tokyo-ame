@@ -139,6 +139,7 @@ html, body {
 
   a {
     color: $amesh-blue-light;
+    -webkit-app-region: no-drag;
 
     // hide first focus
     &:focus {
