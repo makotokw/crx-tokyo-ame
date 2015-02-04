@@ -1,14 +1,16 @@
-Tokyo Amesh for Chrome Extension
+Tokyo Amesh Chrome App
 ==========================
 
-Unofficial [Tokyo Amesh](http://tokyo-ame.jwa.or.jp/) Chrome Extension.
+Unofficial [Tokyo Amesh](http://tokyo-ame.jwa.or.jp/) Chrome App.
+
+https://chrome.google.com/webstore/detail/tokyo-ame/cmidngbgkimeejhcdnggnnlnkjhhjkkp?hl=ja
 
 ## Development
 
 ### Requirements
 
-* Grunt
 * Bower
+* Grunt
 * Compass >=1.0.1
 
 ### Getting Started
